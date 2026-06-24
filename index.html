@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Area 51 Radio — Videography & Visual Production | Creative Music Television</title>
+<meta name="description" content="Cinematic music videos, live performances, cyphers and viral content out of Dallas–Fort Worth. The new-age MTV. 1M+ views. Booking open." />
+
+<!-- ===== Open Graph / social preview ===== -->
+<meta property="og:title" content="Area 51 Radio — Videography & Visual Production" />
+<meta property="og:description" content="Cinematic music videos, live sessions, cyphers & viral content. The new-age MTV out of Dallas–Fort Worth." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#070708;
+    --bg-2:#0d0d10;
+    --panel:#121216;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --ink:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6c6c78;
+    --acc:#b6ff2e;       /* alien lime */
+    --acc-2:#16e0c8;     /* cyan */
+    --acc-3:#ff2ea6;     /* magenta (RGB TV) */
+    --grad:linear-gradient(100deg,var(--acc) 0%, var(--acc-2) 55%, var(--acc-3) 110%);
+    --maxw:1240px;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5;
+  }
+  /* scanline / TV texture overlay */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9;
+    background:repeating-linear-gradient(to bottom,rgba(255,255,255,.014) 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;opacity:.6;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:8;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{
+    font-family:"Space Grotesk";font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--acc);display:inline-flex;align-items:center;gap:10px;font-weight:600;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--acc);display:inline-block}
+  .display{font-family:"Bebas Neue";font-weight:400;letter-spacing:.01em;line-height:.92;text-transform:uppercase}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ===== NAV ===== */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(14px);background:rgba(7,7,8,.55);
+    border-bottom:1px solid transparent;transition:.4s;
+  }
+  header.nav.scrolled{background:rgba(7,7,8,.82);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:70px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Space Grotesk";font-weight:700;letter-spacing:.02em}
+  .brand .glyph{
+    width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+    background:var(--grad);color:#06120a;font-family:"Bebas Neue";font-size:20px;
+    box-shadow:0 0 22px rgba(182,255,46,.35)
+  }
+  .brand small{display:block;font-family:"Inter";font-weight:500;font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-top:1px}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-size:13.5px;color:var(--muted);font-weight:500;transition:.25s;position:relative}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{
+    font-family:"Space Grotesk";font-weight:600;font-size:13.5px;letter-spacing:.01em;
+    padding:11px 20px;border-radius:100px;display:inline-flex;align-items:center;gap:8px;
+    transition:.3s;border:1px solid transparent;cursor:pointer;white-space:nowrap
+  }
+  .btn-primary{background:var(--grad);color:#06120a;box-shadow:0 6px 30px -8px rgba(182,255,46,.5)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px -8px rgba(182,255,46,.7)}
+  .btn-ghost{border-color:var(--line-2);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--acc);color:var(--acc)}
+  .nav-links .btn{padding:9px 18px}
+  .menu-toggle{display:none;background:none;border:0;color:var(--ink);font-size:24px;cursor:pointer}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:120px 0 70px;overflow:hidden}
+  .hero-glow{position:absolute;inset:0;z-index:0}
+  .hero-glow::before{content:"";position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:1000px;height:700px;
+    background:radial-gradient(circle at 50% 40%,rgba(182,255,46,.16),transparent 60%);filter:blur(20px)}
+  .hero-glow::after{content:"";position:absolute;bottom:-20%;right:-10%;width:700px;height:700px;
+    background:radial-gradient(circle,rgba(255,46,166,.12),transparent 60%)}
+  .hero-in{position:relative;z-index:2;width:100%}
+  .hero h1{font-size:clamp(54px,9.5vw,148px);margin:18px 0 0;letter-spacing:.005em}
+  .hero h1 .ln{display:block;overflow:hidden}
+  .hero-sub{max-width:560px;color:var(--muted);font-size:clamp(16px,1.5vw,19px);margin:26px 0 0;line-height:1.6}
+  .hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .hero-meta{display:flex;gap:8px;align-items:center;margin-top:40px;color:var(--muted-2);font-size:13px;flex-wrap:wrap}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)}
+
+  /* ===== STAT MARQUEE ===== */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;white-space:nowrap;padding:18px 0}
+  .marquee-track{display:inline-flex;gap:0;animation:scroll 28s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{font-family:"Bebas Neue";font-size:30px;letter-spacing:.04em;color:var(--muted);padding:0 34px;display:inline-flex;align-items:center;gap:14px}
+  .marquee-track span b{color:var(--ink)}
+  .marquee-track span::after{content:"✦";color:var(--acc);font-size:14px;margin-left:34px}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ===== SECTION SHELL ===== */
+  section{position:relative;z-index:2}
+  .sec{padding:110px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:48px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(38px,5.2vw,72px);margin:14px 0 0;max-width:760px}
+  .sec-head p{color:var(--muted);max-width:420px;font-size:15.5px}
+
+  /* ===== FEATURED CYPHER ===== */
+  .feature{display:grid;grid-template-columns:1.55fr .85fr;gap:34px;align-items:stretch}
+  .video-frame{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-2);background:#000;aspect-ratio:16/9}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+    background:radial-gradient(circle at 50% 35%,rgba(182,255,46,.14),#0a0a0c 70%);cursor:pointer;text-align:center;padding:30px}
+  .play{width:78px;height:78px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#06120a;
+    box-shadow:0 0 40px rgba(182,255,46,.4);transition:.3s}
+  .video-poster:hover .play{transform:scale(1.08)}
+  .play svg{margin-left:4px}
+  .video-poster .tag{font-family:"Space Grotesk";font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .video-poster .ttl{font-family:"Bebas Neue";font-size:34px;letter-spacing:.02em}
+  .feature-side{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:8px 0}
+  .feature-side h3{font-family:"Space Grotesk";font-size:24px;margin:0;font-weight:700}
+  .feature-side p{color:var(--muted);font-size:15px;margin:0;line-height:1.65}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
+  .chip{font-size:12px;font-family:"Space Grotesk";font-weight:500;padding:7px 13px;border:1px solid var(--line-2);border-radius:100px;color:var(--muted)}
+  .chip.lit{border-color:var(--acc);color:var(--acc)}
+
+  /* ===== VIRAL GRID (Instagram) ===== */
+  .reel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .reel-card{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--panel);
+    aspect-ratio:9/13;display:flex;flex-direction:column;justify-content:flex-end;transition:.4s;isolation:isolate}
+  .reel-card:hover{transform:translateY(-6px);border-color:var(--line-2)}
+  .reel-card .ig-embed{position:absolute;inset:0;overflow:hidden}
+  .reel-card .ig-embed iframe,.reel-card .ig-embed .instagram-media{width:100%!important;min-width:0!important;margin:0!important;border:0!important}
+  /* styled fallback when no permalink yet */
+  .reel-fallback{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:20px;
+    background:linear-gradient(160deg,rgba(182,255,46,.10),rgba(255,46,166,.12)),var(--bg-2);transition:.4s}
+  .reel-card:hover .reel-fallback{background:linear-gradient(160deg,rgba(182,255,46,.18),rgba(255,46,166,.2)),var(--bg-2)}
+  .reel-top{display:flex;align-items:center;justify-content:space-between}
+  .reel-ig{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-family:"Space Grotesk"}
+  .reel-play{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid var(--line-2);display:grid;place-items:center;align-self:center;margin:auto 0;color:#fff}
+  .reel-meta .stat{font-family:"Bebas Neue";font-size:40px;line-height:1;letter-spacing:.02em}
+  .reel-meta .stat span{color:var(--acc)}
+  .reel-meta .lbl{font-size:13px;color:var(--muted);margin-top:4px}
+  .reel-link{position:absolute;inset:0;z-index:5}
+
+  /* ===== SERVICES ===== */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc{padding:30px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),var(--bg-2));transition:.35s;position:relative;overflow:hidden}
+  .svc::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:.4s}
+  .svc:hover{transform:translateY(-5px);border-color:var(--line-2)}
+  .svc:hover::after{transform:scaleX(1)}
+  .svc .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(182,255,46,.1);color:var(--acc);margin-bottom:18px}
+  .svc h3{font-family:"Space Grotesk";font-size:19px;margin:0 0 8px;font-weight:600}
+  .svc p{color:var(--muted);font-size:14px;margin:0;line-height:1.6}
+  .svc .num{position:absolute;top:22px;right:24px;font-family:"Bebas Neue";font-size:22px;color:var(--muted-2)}
+
+  /* ===== VIDEO ROW (more work) ===== */
+  .vid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .vid-tile{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;position:relative;aspect-ratio:16/9}
+  .vid-tile iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vid-tile .vfall{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+    background:radial-gradient(circle at 50% 40%,rgba(22,224,200,.12),#0a0a0c 70%);cursor:pointer}
+  .vid-tile .vfall .p{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid var(--line-2);display:grid;place-items:center;color:#fff}
+  .vid-tile .vfall small{font-family:"Space Grotesk";font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+  /* ===== CLIENTS / ARTISTS ===== */
+  .logos{display:flex;flex-wrap:wrap;gap:14px}
+  .logo-pill{padding:14px 22px;border:1px solid var(--line);border-radius:100px;font-family:"Space Grotesk";font-weight:500;color:var(--muted);font-size:15px;transition:.3s}
+  .logo-pill:hover{color:var(--ink);border-color:var(--acc)}
+  .logo-pill b{color:var(--ink)}
+
+  /* ===== ABOUT / SPLIT ===== */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+  .big-stat{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+  .big-stat .n{font-family:"Bebas Neue";font-size:54px;line-height:1;letter-spacing:.02em}
+  .big-stat .n span{color:var(--acc)}
+  .big-stat .l{color:var(--muted);font-size:13.5px;margin-top:8px}
+  .about p{color:var(--muted);font-size:16px;line-height:1.7}
+  .about h2{font-size:clamp(34px,4.6vw,58px);margin:14px 0 18px}
+  .role{color:var(--acc);font-family:"Space Grotesk";font-weight:600;letter-spacing:.02em;font-size:15px;margin:2px 0 20px}
+  .award{display:flex;align-items:center;gap:16px;margin-top:26px;padding:18px 20px;border:1px solid var(--line-2);border-radius:14px;
+    background:linear-gradient(100deg,rgba(182,255,46,.09),rgba(255,46,166,.06)),var(--panel)}
+  .award-ico{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--grad);color:#06120a;flex-shrink:0;
+    box-shadow:0 0 26px rgba(182,255,46,.35)}
+  .award-t{font-family:"Space Grotesk";font-weight:700;font-size:16.5px;letter-spacing:.01em}
+  .award-s{color:var(--muted);font-size:13px;margin-top:3px}
+  /* view-count number badge on edits */
+  .vstat{font-family:"Space Grotesk";font-weight:500;color:var(--muted);font-size:14px;margin:2px 0 2px}
+  .vstat .vnum{font-family:"Bebas Neue";font-weight:400;font-size:30px;letter-spacing:.02em;color:var(--ink);margin-right:8px;vertical-align:-3px}
+  .views-badge{position:absolute;top:12px;left:12px;z-index:6;display:inline-flex;align-items:center;gap:5px;
+    font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#06120a;background:var(--acc);
+    padding:5px 11px;border-radius:100px;box-shadow:0 4px 14px -4px rgba(0,0,0,.5)}
+
+  /* ===== CONTACT ===== */
+  .contact{padding:120px 0}
+  .contact-card{border:1px solid var(--line-2);border-radius:28px;padding:64px;text-align:center;position:relative;overflow:hidden;
+    background:radial-gradient(circle at 50% 0%,rgba(182,255,46,.1),var(--panel) 60%)}
+  .contact-card h2{font-size:clamp(42px,7vw,104px);margin:0 0 18px}
+  .contact-card p{color:var(--muted);max-width:520px;margin:0 auto 34px;font-size:16px}
+  .contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .socials{display:flex;gap:14px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+  .soc{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);transition:.3s}
+  .soc:hover{color:var(--acc);border-color:var(--acc);transform:translateY(-3px)}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted-2);font-size:13px}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:980px){
+    .feature{grid-template-columns:1fr}
+    .reel-grid,.svc-grid,.vid-row{grid-template-columns:repeat(2,1fr)}
+    .about{grid-template-columns:1fr;gap:36px}
+  }
+  @media(max-width:680px){
+    .nav-links{position:fixed;inset:70px 0 auto 0;flex-direction:column;background:rgba(7,7,8,.97);
+      padding:24px;gap:20px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:.4s;align-items:flex-start}
+    .nav-links.open{transform:none}
+    .menu-toggle{display:block}
+    .reel-grid,.svc-grid,.vid-row{grid-template-columns:1fr}
+    .sec{padding:78px 0}
+    .contact-card{padding:40px 24px}
+    .marquee-track span{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand">
+      <span class="glyph">51</span>
+      <span>AREA 51 RADIO<small>Creative Music Television</small></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#viral">Viral Reels</a>
+      <a href="#cypher">The Cypher</a>
+      <a href="#reel">Reel</a>
+      <a href="#services">Services</a>
+      <a href="#contact" class="btn btn-primary">Book a shoot</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="menu">☰</button>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-in">
+    <span class="eyebrow reveal">Videography · Music Visuals · Dallas–Fort Worth</span>
+    <h1 class="display reveal">
+      <span class="ln">We turn artists</span>
+      <span class="ln">into <span class="grad-text">moments.</span></span>
+    </h1>
+    <p class="hero-sub reveal">
+      The new-age MTV. Cinematic music videos, live performances, cyphers and viral content
+      for independent artists who refuse to be ignored.
+    </p>
+    <div class="hero-cta reveal">
+      <a href="#cypher" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch the R&amp;B Cypher
+      </a>
+      <a href="#viral" class="btn btn-ghost">See the viral work</a>
+    </div>
+    <div class="hero-meta reveal">
+      <span class="dot"></span> Texas Rising Star Award · Texas Business Hall of Fame &nbsp;·&nbsp; 1M+ views &nbsp;·&nbsp; Dallas–Fort Worth
+    </div>
+  </div>
+</section>
+
+<!-- ================= STAT MARQUEE ================= -->
+<div class="marquee">
+  <div class="marquee-track" id="marquee">
+    <span><b>1M+</b> Views</span>
+    <span><b>12K+</b> Followers</span>
+    <span><b>156+</b> Productions</span>
+    <span><b>1M+</b> Accounts Reached</span>
+    <span><b>10K</b> Followers Gained</span>
+    <span><b>Dallas</b> · Fort Worth</span>
+  </div>
+</div>
+
+<!-- ================= SHORT-FORM VIRAL REELS ================= -->
+<section class="sec" id="viral">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Short-Form · @area51radio</span>
+        <h2 class="display">Reels that went viral</h2>
+      </div>
+      <p>The short-form moments that broke through — vertical reels and clips pushing 1M+ views across Instagram, TikTok and YouTube.</p>
+    </div>
+    <div class="reel-grid" id="reelGrid"><!-- JS renders reels --></div>
+  </div>
+</section>
+
+<!-- ================= FEATURED CYPHER ================= -->
+<section class="sec" id="cypher">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Featured Production</span>
+        <h2 class="display">The R&amp;B Cypher</h2>
+      </div>
+      <p>A signature Area 51 Radio session — independent R&amp;B vocalists, one room, one take energy. Shot, directed and edited in-house.</p>
+    </div>
+
+    <div class="feature reveal">
+      <div class="video-frame" id="cypherFrame">
+        <!-- JS injects YouTube iframe when an ID is set, else this poster shows -->
+        <div class="video-poster" id="cypherPoster">
+          <div class="play">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="ttl display">R&amp;B Cypher</div>
+          <div class="tag">Creative Music Television · YouTube</div>
+        </div>
+      </div>
+      <div class="feature-side">
+        <h3>Independent R&amp;B, one cypher, zero label filter.</h3>
+        <p>
+          The R&amp;B Cypher is where Area 51 Radio gives unsigned vocalists a stage that looks
+          and sounds like a major. Cinematic lighting, multi-cam capture, live-tracked vocals,
+          and an edit built to travel across YouTube, Reels and TikTok.
+        </p>
+        <div class="vstat"><span class="vnum">13K+</span> views · YouTube</div>
+        <div class="chips">
+          <span class="chip lit">Multi-cam</span>
+          <span class="chip lit">Live vocals</span>
+          <span class="chip">Color grade</span>
+          <span class="chip">Cinematic lighting</span>
+          <span class="chip">Social cutdowns</span>
+        </div>
+        <a href="https://www.youtube.com/channel/UCVH6_5m-kVZE_XtvSpYBMWQ" target="_blank" rel="noopener" class="btn btn-ghost" style="align-self:flex-start;margin-top:8px">
+          Watch on YouTube ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- (Short-form viral reels section moved above the featured cypher) -->
+
+<!-- ================= SERVICES ================= -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">What we shoot</span>
+        <h2 class="display">Full-service visual production</h2>
+      </div>
+      <p>From the first lighting setup to the final social cutdown — one team, one look, built to go viral.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><span class="num">01</span><div class="ico">🎬</div><h3>Music Videos</h3><p>Concept-to-color cinematic music videos that make an independent artist look like a headliner.</p></div>
+      <div class="svc reveal"><span class="num">02</span><div class="ico">🎤</div><h3>Live Performances</h3><p>Multi-cam live sessions and showcases captured with broadcast-grade audio and lighting.</p></div>
+      <div class="svc reveal"><span class="num">03</span><div class="ico">🔥</div><h3>Cyphers &amp; Sessions</h3><p>The R&amp;B and hip-hop cypher format — our signature stage for unsigned talent.</p></div>
+      <div class="svc reveal"><span class="num">04</span><div class="ico">📱</div><h3>Viral Social Content</h3><p>Reels, TikToks and shorts engineered to travel — hooks, captions and cutdowns that convert.</p></div>
+      <div class="svc reveal"><span class="num">05</span><div class="ico">🎙️</div><h3>Interviews &amp; Docs</h3><p>Artist features, on-camera interviews and short-form documentary storytelling.</p></div>
+      <div class="svc reveal"><span class="num">06</span><div class="ico">✨</div><h3>Edit &amp; Color</h3><p>Post-production, color grading and graphics with the Creative Music Television house look.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REEL / MORE VIDEO ================= -->
+<section class="sec" id="reel" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">From the channel</span>
+        <h2 class="display">More on the reel</h2>
+      </div>
+      <p>Performances, interviews and features from the Area 51 Radio / Creative Music Television channel.</p>
+    </div>
+    <div class="vid-row" id="vidRow"><!-- JS renders extra videos --></div>
+  </div>
+</section>
+
+<!-- ================= CLIENTS / ARTISTS ================= -->
+<section class="sec" id="clients" style="padding-top:20px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="eyebrow">Selected collaborations</span>
+        <h2 class="display">Artists &amp; campaigns</h2>
+      </div>
+      <p>Independent artists and releases we've shot, marketed and pushed to real numbers.</p>
+    </div>
+    <div class="logos reveal">
+      <span class="logo-pill"><b>Nick Lavelle</b> — "Wifi" feat. Jacquees · 1M streams</span>
+      <span class="logo-pill">Area51 Live Sessions</span>
+      <span class="logo-pill">R&amp;B Cypher Series</span>
+      <span class="logo-pill">Artist Interviews</span>
+      <span class="logo-pill">DFW Independent Showcases</span>
+      <span class="logo-pill">Creative Music Television</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="sec" id="about">
+  <div class="wrap about">
+    <div class="reveal">
+      <span class="eyebrow">Background</span>
+      <h2 class="display">Brandon Odom</h2>
+      <div class="role">Founder &amp; Creative Director — Area 51 Radio / Creative Music Television</div>
+      <p>
+        I'm a Dallas–Fort Worth media entrepreneur, producer and editor. I built Area 51 Radio from the
+        ground up into a music-media brand that's reached over a million people — directing, shooting,
+        cutting and marketing the content myself before scaling a team around it.
+      </p>
+      <p>
+        Area 51 Radio is the new-age MTV: a platform and production house that gives independent artists
+        the visuals, the stage and the marketing muscle to profit from their creativity — without waiting
+        on a major label. From cinematic music videos and live cyphers to short-form that goes viral, the
+        work is built to travel and to convert.
+      </p>
+      <div class="award">
+        <div class="award-ico">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="award-t">Texas Rising Star Award</div>
+          <div class="award-s">Texas Business Hall of Fame · honored for our work in media</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-stats reveal">
+      <div class="big-stat"><div class="n">1<span>M+</span></div><div class="l">Total views across platforms</div></div>
+      <div class="big-stat"><div class="n">1<span>M+</span></div><div class="l">Accounts reached</div></div>
+      <div class="big-stat"><div class="n">12<span>K</span></div><div class="l">Instagram community</div></div>
+      <div class="big-stat"><div class="n">DFW</div><div class="l">Dallas–Fort Worth based</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <span class="eyebrow" style="justify-content:center">Booking open</span>
+      <h2 class="display">Let's shoot.</h2>
+      <p>Music video, live session, cypher or a full content run — tell us the vision and we'll build the look.</p>
+      <div class="contact-actions">
+        <a href="mailto:admin@creativemusictelevision.com?subject=Videography%20Booking%20Inquiry" class="btn btn-primary">
+          admin@creativemusictelevision.com
+        </a>
+        <a href="https://www.instagram.com/area51radio/" target="_blank" rel="noopener" class="btn btn-ghost">DM @area51radio</a>
+      </div>
+      <div class="socials">
+        <a class="soc" href="https://www.instagram.com/area51radio/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a class="soc" href="https://www.youtube.com/channel/UCVH6_5m-kVZE_XtvSpYBMWQ" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l6.2 3.3-6.2 3.3z"/></svg>
+        </a>
+        <a class="soc" href="https://www.tiktok.com/@thearea51radio" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.5 3.5 3.5 3.7v2.6c-1.3.1-2.5-.3-3.6-1v6.6c0 3.5-2.7 5.6-5.7 5.1-3.2-.5-4.6-3.6-3.4-6.2.9-2 3-2.9 5.1-2.5v2.7c-.5-.1-1-.1-1.5.1-1 .4-1.4 1.5-1 2.5.4 1 1.6 1.4 2.5.9.6-.3 1-1 1-1.8V3h2.6z"/></svg>
+        </a>
+        <a class="soc" href="https://www.area51radio.net/" target="_blank" rel="noopener" aria-label="Website">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot-in">
+    <div>© <span id="yr"></span> Area 51 Radio · Creative Music Television</div>
+    <div>Videography &amp; Visual Production · Dallas–Fort Worth, TX</div>
+  </div>
+</footer>
+
+<!-- Instagram embed renderer -->
+<script async src="//www.instagram.com/embed.js"></script>
+
+<script>
+/* =====================================================================
+   ⚙️  CONTENT CONFIG  —  the only thing you need to edit.
+   ---------------------------------------------------------------------
+   1) CYPHER: paste the YouTube video ID of the R&B Cypher.
+      A YouTube URL like  https://youtu.be/AbC123xyz  ->  id is  "AbC123xyz"
+      or  https://www.youtube.com/watch?v=AbC123xyz   ->  "AbC123xyz"
+
+   2) VIRAL_POSTS: paste the share link of each viral Instagram post/reel.
+      Open the post on Instagram → Share → "Copy link" → paste it as `url`.
+      Leave a slot's url as "" to show a styled placeholder card instead.
+
+   3) MORE_VIDEOS: optional extra YouTube IDs (interviews, performances).
+   ===================================================================== */
+const CONTENT = {
+
+  cypher: {
+    youtubeId: "oYlD9dxpfxg",   // R&B Cypher Dallas | AREA51Radio Exclusive
+    views: "13K"
+  },
+
+  // Short-form viral reels (the lead section). The first tile is a live
+  // YouTube video; every other tile takes an Instagram reel link —
+  // open the reel → Share → "Copy link" → paste it into `url`, and set
+  // `views` to that reel's view count so the number shows on the tile.
+  viralPosts: [
+    { youtubeId: "UKvZYQKDjg8", title: "Flip The Sample · Producer Series", views: "5.3K" },
+    { url: "", title: "R&B Cypher Clip", views: "" },
+    { url: "", title: "Live Performance", views: "" },
+    { url: "", title: "Funny Money Moment", views: "" },
+    { url: "", title: "Behind The Scenes", views: "" },
+    { url: "", title: "Artist Feature", views: "" }
+  ],
+
+  moreVideos: [
+    { youtubeId: "", title: "Live Session" },
+    { youtubeId: "", title: "Artist Interview" },
+    { youtubeId: "", title: "Performance" }
+  ]
+};
+
+/* ---------- helpers ---------- */
+const IG_PROFILE = "https://www.instagram.com/area51radio/";
+const YT_CHANNEL = "https://www.youtube.com/channel/UCVH6_5m-kVZE_XtvSpYBMWQ";
+
+function normalizeIgUrl(u){
+  if(!u) return "";
+  u = u.split("?")[0];
+  if(!u.endsWith("/")) u += "/";
+  return u;
+}
+
+/* ---------- Featured cypher ---------- */
+(function renderCypher(){
+  const id = CONTENT.cypher.youtubeId.trim();
+  const frame = document.getElementById("cypherFrame");
+  const poster = document.getElementById("cypherPoster");
+  if(!id){
+    // poster click → open channel
+    poster.addEventListener("click", ()=>window.open(YT_CHANNEL,"_blank"));
+    return;
+  }
+  poster.addEventListener("click", ()=>{
+    poster.remove();
+    const f = document.createElement("iframe");
+    f.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    f.allowFullscreen = true;
+    frame.appendChild(f);
+  });
+})();
+
+/* ---------- Viral reels grid (live YouTube + Instagram) ---------- */
+(function renderReels(){
+  const grid = document.getElementById("reelGrid");
+  CONTENT.viralPosts.forEach((p,i)=>{
+    const card = document.createElement("div");
+    card.className = "reel-card reveal";
+    card.style.transitionDelay = (i*60)+"ms";
+    const ytId = (p.youtubeId||"").trim();
+    const url = normalizeIgUrl(p.url);
+    const views = (p.views||"").trim();
+    const badge = views
+      ? `<div class="views-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> ${views} views</div>`
+      : "";
+    if(ytId){
+      card.innerHTML =
+        `${badge}
+         <div class="yt-reel" style="position:absolute;inset:0;cursor:pointer;background:#000">
+           <div class="reel-fallback">
+             <div class="reel-top">
+               <span class="reel-ig">
+                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7C23 15.2 23 12 23 12zM9.8 15.3V8.7l6.2 3.3-6.2 3.3z"/></svg>
+                 YouTube
+               </span>
+               <span style="font-size:11px;color:var(--muted-2)">WATCH</span>
+             </div>
+             <div class="reel-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+             <div class="reel-meta"><div class="lbl" style="font-size:14px;color:var(--ink)">${p.title}</div></div>
+           </div>
+         </div>`;
+      card.querySelector(".yt-reel").addEventListener("click",function(){
+        const f=document.createElement("iframe");
+        f.src="https://www.youtube.com/embed/"+ytId+"?autoplay=1&rel=0";
+        f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;
+        f.style.cssText="position:absolute;inset:0;width:100%;height:100%;border:0";
+        this.replaceWith(f);
+      });
+    } else if(url){
+      card.innerHTML =
+        `${badge}
+         <div class="ig-embed">
+           <blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14"
+             style="background:#0d0d10;border:0;margin:0;width:100%"></blockquote>
+         </div>`;
+    } else {
+      card.innerHTML =
+        `${badge}
+         <a class="reel-link" href="${IG_PROFILE}" target="_blank" rel="noopener" aria-label="${p.title}"></a>
+         <div class="reel-fallback">
+           <div class="reel-top">
+             <span class="reel-ig">
+               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+               @area51radio
+             </span>
+             <span style="font-size:11px;color:var(--muted-2)">REEL</span>
+           </div>
+           <div class="reel-play">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+           </div>
+           <div class="reel-meta">
+             <div class="lbl" style="font-size:15px;color:var(--ink)">${p.title}</div>
+             <div class="lbl">Tap to view on Instagram</div>
+           </div>
+         </div>`;
+    }
+    grid.appendChild(card);
+  });
+  if(window.instgrm) window.instgrm.Embeds.process();
+})();
+
+/* ---------- More videos ---------- */
+(function renderVideos(){
+  const row = document.getElementById("vidRow");
+  CONTENT.moreVideos.forEach((v,i)=>{
+    const tile = document.createElement("div");
+    tile.className = "vid-tile reveal";
+    tile.style.transitionDelay = (i*60)+"ms";
+    const id = (v.youtubeId||"").trim();
+    if(id){
+      tile.innerHTML =
+        `<div class="vfall" data-id="${id}">
+           <div class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+           <small>${v.title}</small>
+         </div>`;
+      tile.querySelector(".vfall").addEventListener("click",e=>{
+        const f=document.createElement("iframe");
+        f.src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+        f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;
+        e.currentTarget.replaceWith(f);
+      });
+    } else {
+      tile.innerHTML =
+        `<a class="vfall" href="${YT_CHANNEL}" target="_blank" rel="noopener" style="text-decoration:none">
+           <div class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+           <small>${v.title} · on YouTube ↗</small>
+         </a>`;
+    }
+    row.appendChild(tile);
+  });
+})();
+
+/* ---------- Scroll reveal ---------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+/* ---------- Nav behaviour ---------- */
+const nav = document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>30));
+const links = document.getElementById("navLinks");
+document.getElementById("menuToggle").addEventListener("click",()=>links.classList.toggle("open"));
+links.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>links.classList.remove("open")));
+
+/* ---------- Marquee duplicate for seamless loop ---------- */
+const mq = document.getElementById("marquee");
+mq.innerHTML += mq.innerHTML;
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
