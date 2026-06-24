@@ -173,7 +173,7 @@
   .svc .num{position:absolute;top:22px;right:24px;font-family:"Bebas Neue";font-size:22px;color:var(--muted-2)}
 
   /* ===== VIDEO ROW (more work) ===== */
-  .vid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .vid-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
   .vid-tile{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;position:relative;aspect-ratio:16/9}
   .vid-tile iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .vid-tile .vfall{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
@@ -522,23 +522,21 @@ const CONTENT = {
     views: "13K"
   },
 
-  // Short-form viral reels (the lead section). The first tile is a live
-  // YouTube video; every other tile takes an Instagram reel link —
+  // Short-form viral reels. Each tile takes an Instagram reel link —
   // open the reel → Share → "Copy link" → paste it into `url`, and set
   // `views` to that reel's view count so the number shows on the tile.
   viralPosts: [
-    { youtubeId: "UKvZYQKDjg8", title: "Flip The Sample · Producer Series", views: "5.3K" },
     { url: "", title: "R&B Cypher Clip", views: "" },
     { url: "", title: "Live Performance", views: "" },
     { url: "", title: "Funny Money Moment", views: "" },
     { url: "", title: "Behind The Scenes", views: "" },
-    { url: "", title: "Artist Feature", views: "" }
+    { url: "", title: "Artist Feature", views: "" },
+    { url: "", title: "Viral Moment", views: "" }
   ],
 
+  // Long-form films — embedded inline and playable directly on the page.
   moreVideos: [
-    { youtubeId: "", title: "Live Session" },
-    { youtubeId: "", title: "Artist Interview" },
-    { youtubeId: "", title: "Performance" }
+    { youtubeId: "UKvZYQKDjg8", title: "Flip The Sample · Producer Series — VANNI.BRAVO & DDILTZ", views: "5.3K" }
   ]
 };
 
@@ -553,24 +551,23 @@ function normalizeIgUrl(u){
   return u;
 }
 
-/* ---------- Featured cypher ---------- */
+/* ---------- Featured cypher (embedded inline, plays in place) ---------- */
 (function renderCypher(){
-  const id = CONTENT.cypher.youtubeId.trim();
+  const id = (CONTENT.cypher.youtubeId||"").trim();
   const frame = document.getElementById("cypherFrame");
   const poster = document.getElementById("cypherPoster");
   if(!id){
-    // poster click → open channel
-    poster.addEventListener("click", ()=>window.open(YT_CHANNEL,"_blank"));
+    if(poster) poster.addEventListener("click", ()=>window.open(YT_CHANNEL,"_blank"));
     return;
   }
-  poster.addEventListener("click", ()=>{
-    poster.remove();
-    const f = document.createElement("iframe");
-    f.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-    f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    f.allowFullscreen = true;
-    frame.appendChild(f);
-  });
+  if(poster) poster.remove();
+  const f = document.createElement("iframe");
+  f.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&playsinline=1`;
+  f.title = "R&B Cypher Dallas — AREA51Radio Exclusive";
+  f.loading = "lazy";
+  f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  f.allowFullscreen = true;
+  frame.appendChild(f);
 })();
 
 /* ---------- Viral reels grid (live YouTube + Instagram) ---------- */
@@ -642,34 +639,34 @@ function normalizeIgUrl(u){
   if(window.instgrm) window.instgrm.Embeds.process();
 })();
 
-/* ---------- More videos ---------- */
+/* ---------- More videos (embedded inline, play in place) ---------- */
 (function renderVideos(){
   const row = document.getElementById("vidRow");
-  CONTENT.moreVideos.forEach((v,i)=>{
-    const tile = document.createElement("div");
-    tile.className = "vid-tile reveal";
-    tile.style.transitionDelay = (i*60)+"ms";
-    const id = (v.youtubeId||"").trim();
-    if(id){
-      tile.innerHTML =
-        `<div class="vfall" data-id="${id}">
-           <div class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-           <small>${v.title}</small>
-         </div>`;
-      tile.querySelector(".vfall").addEventListener("click",e=>{
-        const f=document.createElement("iframe");
-        f.src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-        f.allow="autoplay; encrypted-media; picture-in-picture";f.allowFullscreen=true;
-        e.currentTarget.replaceWith(f);
-      });
-    } else {
-      tile.innerHTML =
-        `<a class="vfall" href="${YT_CHANNEL}" target="_blank" rel="noopener" style="text-decoration:none">
-           <div class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-           <small>${v.title} · on YouTube ↗</small>
-         </a>`;
-    }
-    row.appendChild(tile);
+  const section = document.getElementById("reel");
+  const withId = CONTENT.moreVideos.filter(v=>(v.youtubeId||"").trim());
+  if(!withId.length){ if(section) section.style.display="none"; return; }
+  withId.forEach((v,i)=>{
+    const id=(v.youtubeId||"").trim();
+    const wrap=document.createElement("div");
+    wrap.className="reveal";
+    wrap.style.transitionDelay=(i*60)+"ms";
+    const tile=document.createElement("div");
+    tile.className="vid-tile";
+    const f=document.createElement("iframe");
+    f.src="https://www.youtube.com/embed/"+id+"?rel=0&modestbranding=1&playsinline=1";
+    f.title=v.title||"Area 51 Radio";
+    f.loading="lazy";
+    f.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    f.allowFullscreen=true;
+    tile.appendChild(f);
+    wrap.appendChild(tile);
+    const cap=document.createElement("div");
+    cap.style.cssText="margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px";
+    cap.innerHTML=
+      `<span style="font-family:'Space Grotesk';font-weight:500;font-size:15px">${v.title||""}</span>`+
+      (v.views?`<span style="font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--acc);white-space:nowrap">▶ ${v.views} views</span>`:"");
+    wrap.appendChild(cap);
+    row.appendChild(wrap);
   });
 })();
 
