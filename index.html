@@ -151,6 +151,13 @@
   .reel-cap span{font-family:var(--f-mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-white)}
   .reel-views{position:absolute;top:12px;right:12px;z-index:5;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;background:var(--grad);color:#0B0B0E;font-weight:700;padding:5px 9px;border-radius:999px}
 
+  /* CLIENT WORK */
+  .client-lead{font-family:var(--f-disp);font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,3.2vw,2.8rem);letter-spacing:-.03em;line-height:1;margin:12px 0 14px}
+  .client-head p{color:#2b2b30;max-width:660px}
+  .vert-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;max-width:800px}
+  .vert video{width:100%;aspect-ratio:9/16;object-fit:cover;background:#000;border:1px solid var(--hair);border-radius:14px;display:block}
+  .vcap{margin-top:10px;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-on-white)}
+
   /* PLAYERS */
   .player{border:1px solid var(--hair);border-radius:14px;background:var(--ink);overflow:hidden}
   .player .bar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 16px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-on-ink)}
@@ -232,6 +239,7 @@
     </a>
     <div class="nav-links">
       <a href="#shortform">Short-Form</a>
+      <a href="#client">Client Work</a>
       <a href="#films">Films</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
@@ -312,10 +320,47 @@
   </div>
 </section>
 
+<!-- ============ CLIENT WORK — LEGEND HOMES ============ -->
+<section id="client">
+  <div class="wrap fade">
+    <div class="shead"><span class="no">[03]</span><h2>Client Work</h2><span class="right">Legend Homes · On the Market</span></div>
+
+    <div class="client-head">
+      <span class="kicker">Legend Homes — Model Tour Series</span>
+      <p class="client-lead">35 years of homebuilding,<br /><span class="grad-text">cut into a content engine.</span></p>
+      <p>A full model-tour series for Legend Homes — host-led walkthroughs with Carla Cordero, on-camera builder interviews, and vertical cutdowns built to run across YouTube, Reels and TikTok. Scripted, shot, edited and delivered as a system, not a one-off. 17 final clips from a single production.</p>
+      <div class="chips">
+        <span class="on">Model Tours</span><span class="on">Builder Interviews</span><span>B-roll</span><span>Vertical Cutdowns</span><span>17 Final Clips</span>
+      </div>
+    </div>
+
+    <div class="player" style="margin-top:36px">
+      <div class="bar"><span><span class="dot">●</span> Legend Homes — Timeline: Start to Closing</span><span class="v">Interview · 16:9</span></div>
+      <div class="frame">
+        <video controls playsinline preload="metadata" poster="media/legend-interview.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <source src="media/legend-interview.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="sub-h" style="margin-top:42px"><b>[ Vertical Cutdowns ]</b> · Same shoot, rebuilt for short-form</div>
+    <div class="vert-row">
+      <div class="vert">
+        <video controls muted loop playsinline preload="metadata" poster="media/legend-vert-1.jpg"><source src="media/legend-vert-1.mp4" type="video/mp4"></video>
+        <div class="vcap">Features Intro — What Are You Getting</div>
+      </div>
+      <div class="vert">
+        <video controls muted loop playsinline preload="metadata" poster="media/legend-vert-2.jpg"><source src="media/legend-vert-2.mp4" type="video/mp4"></video>
+        <div class="vcap">Yard Sign — New Home Shopping Hook</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FILMS ============ -->
 <section id="films">
   <div class="wrap fade">
-    <div class="shead"><span class="no">[03]</span><h2>The Films</h2><span class="right">Embedded · Press Play</span></div>
+    <div class="shead"><span class="no">[04]</span><h2>The Films</h2><span class="right">Embedded · Press Play</span></div>
 
     <div>
       <div class="player">
@@ -340,7 +385,7 @@
 <!-- ============ SERVICES ============ -->
 <section id="services">
   <div class="wrap fade">
-    <div class="shead"><span class="no">[04]</span><h2>What We Build</h2><span class="right">Concept → Color → Publish</span></div>
+    <div class="shead"><span class="no">[05]</span><h2>What We Build</h2><span class="right">Concept → Color → Publish</span></div>
     <div class="list">
       <div class="li"><span class="no">01</span><span class="ti">Music Films</span><span class="ds">Concept-to-color cinematic video that makes an independent artist look like a headliner.</span></div>
       <div class="li"><span class="no">02</span><span class="ti">Live Performance</span><span class="ds">Multi-cam live sessions and showcases captured with broadcast-grade audio and lighting.</span></div>
@@ -355,7 +400,7 @@
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap fade">
-    <div class="shead"><span class="no">[05]</span><h2>Background</h2><span class="right">The Operator</span></div>
+    <div class="shead"><span class="no">[06]</span><h2>Background</h2><span class="right">The Operator</span></div>
     <div class="about-grid">
       <div>
         <p class="about-lead">The visuals, the stage and the system — <span class="grad-text">one motion.</span></p>
@@ -380,7 +425,7 @@
 <section id="award">
   <div class="glow glow--coral" style="width:460px;height:460px;top:-140px;left:-120px;opacity:.5"></div>
   <div class="wrap fade">
-    <div class="shead"><span class="no">[06]</span><h2>Recognition</h2><span class="right">Creative Music Television</span></div>
+    <div class="shead"><span class="no">[07]</span><h2>Recognition</h2><span class="right">Creative Music Television</span></div>
     <div class="award-grid">
       <div>
         <span class="plate"><img src="assets/ctv-logo.png" alt="CTV — Creative Music Television" /></span>
