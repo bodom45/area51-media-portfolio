@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Copy Message</title>
+<style>
+  :root { --ink:#17171a; --paper:#faf8f2; --card:#ffffff; --line:#e3dfd2; --muted:#6c6a63; --orange:#f26b41; --blue:#3b6fd4; --green:#2f9c73; }
+  @media (prefers-color-scheme: dark) { :root { --ink:#f2f0ea; --paper:#111113; --card:#1b1b1f; --line:#2c2c31; --muted:#9a978e; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:640px; margin:0 auto; padding:24px 16px 40px; }
+  .kicker { font:700 11px/1 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--orange); }
+  h1 { font-size:20px; margin:8px 0 16px; word-break:break-word; }
+  .msg { background:var(--card); border:1px solid var(--line); border-left:3px solid var(--orange); border-radius:8px; padding:14px 16px; white-space:pre-wrap; word-break:break-word; font-size:15px; user-select:all; -webkit-user-select:all; }
+  .email .msg { border-left-color:var(--blue); }
+  .btns { display:grid; gap:10px; margin-top:16px; }
+  button, a.btn { appearance:none; border:0; border-radius:10px; padding:15px 16px; font-family:inherit; font-size:16px; font-weight:700; line-height:1; text-align:center; text-decoration:none; cursor:pointer; }
+  .primary { background:var(--ink); color:var(--paper); }
+  .secondary { background:transparent; color:var(--ink); border:1.5px solid var(--line) !important; }
+  .status { min-height:22px; margin-top:12px; font-size:14px; color:var(--green); font-weight:600; text-align:center; }
+  .hint { color:var(--muted); font-size:13px; margin-top:18px; }
+  .empty { color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">CTV Motion Media · Outreach</div>
+  <h1 id="label">Copy message</h1>
+  <div id="msg" class="msg"></div>
+  <div class="btns">
+    <button id="copy" class="primary" type="button">Copy message</button>
+    <button id="copygo" class="secondary" type="button" hidden>Copy + open</button>
+  </div>
+  <div id="status" class="status" role="status"></div>
+  <p class="hint">Tip: if copying is blocked, long-press the message to select it.</p>
+</main>
+<script>
+(function () {
+  var p = new URLSearchParams(location.hash.slice(1));
+  var msg = p.get('m') || '';
+  var go = p.get('go') || '';
+  var kind = p.get('k') || 'ig';
+  var label = p.get('l');
+  var $ = function (id) { return document.getElementById(id); };
+  if (kind === 'email') document.body.classList.add('email');
+  if (label) { $('label').textContent = label; document.title = 'Copy · ' + label; }
+  if (!msg) { $('msg').textContent = 'No message in this link.'; $('msg').classList.add('empty'); $('copy').disabled = true; return; }
+  $('msg').textContent = msg;
+  var safeGo = /^(https:\/\/ig\.me\/|https:\/\/(www\.)?instagram\.com\/|mailto:)/.test(go) ? go : '';
+  if (safeGo) {
+    $('copygo').hidden = false;
+    $('copygo').textContent = kind === 'email' ? 'Copy + open email' : 'Copy + open Instagram DM';
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-1000px';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function copy() {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(msg).then(function () { return true; }, function () { return fallbackCopy(msg); });
+    }
+    return Promise.resolve(fallbackCopy(msg));
+  }
+  function report(ok) {
+    $('status').style.color = ok ? '' : 'var(--orange)';
+    $('status').textContent = ok ? 'Copied ✓' : 'Could not copy automatically. Long-press the message to select it.';
+  }
+  $('copy').addEventListener('click', function () { copy().then(report); });
+  $('copygo').addEventListener('click', function () {
+    copy().then(function (ok) { report(ok); setTimeout(function () { location.href = safeGo; }, 350); });
+  });
+})();
+</script>
+</body>
+</html>
